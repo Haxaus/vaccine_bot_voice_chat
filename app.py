@@ -14,7 +14,7 @@ load_dotenv()
 
 DB_FAISS_PATH = "vector_db/"
 HUGGINGFACE_REPO_ID = "mistralai/Mistral-7B-Instruct-v0.3"
-HF_TOKEN = os.getenv("HF_TOKEN")
+HF_TOKEN = st.secrets.get("HF_TOKEN", os.getenv("HF_TOKEN"))
 
 @st.cache_resource
 def get_vectorstore():
