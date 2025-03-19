@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+sentence-transformers = "*"
+huggingface-hub = "*"
+streamlit = "*"
+langchain = "*"
+langchain-community = "*"
+langchain-huggingface = "*"
+faiss-cpu = "*"
+pypdf = "*"
+langgraph = "*"
+pypi = "*"
+httpx = "==0.27.2"
+streamlit-mic-recorder = "*"
+gtts = "*"
+googletrans-py = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"

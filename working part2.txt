@@ -1,0 +1,10 @@
+Working of audio and Hindi function in vaccine bot:
+
+Step 1: You speak "भारत में कौन से टीके हैं?" → streamlit-mic-recorder turns it into text: "भारत में कौन से टीके हैं?".
+
+Step 2: googletrans translates it to English: "Which vaccines are in India?" → The bot searches the English FAISS database.
+
+Step 3: The bot finds an English answer: "The vaccines in India are Covaxin, Covishield, and Sputnik V." → 
+googletrans translates it to Hindi: "भारत में टीके कोवैक्सिन, कोविशील्ड और स्पुतनिक वी हैं।".
+
+Step 4: The bot shows the Hindi question and answer → gtts turns the Hindi answer into audio and plays it.
