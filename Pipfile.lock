@@ -1,19 +1,24 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2c2d1cede4d5f2e3d6833d4c9921e751c1e2c6dfc48b75c3cacaa89956c08a72"
+            "sha256": "15586cfe0cf6242f8da826e1d34bcdd13f4b34f793f071ce48c5af42a8be6538"
         },
         "pipfile-spec": 6,
         "requires": {
             "python_version": "3.12"
         },
         "sources": [
-            {
-                "name": "pypi",
-                "url": "https://pypi.org/simple",
-                "verify_ssl": true
-            }
-        ]
+    {
+        "name": "pypi",
+        "url": "https://pypi.org/simple",
+        "verify_ssl": true
+    },
+    {
+        "name": "pytorch-cpu",
+        "url": "https://download.pytorch.org/whl/cpu",
+        "verify_ssl": true
+    }
+]
     },
     "default": {
         "aiohappyeyeballs": {
