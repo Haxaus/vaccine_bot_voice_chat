@@ -7,7 +7,7 @@ from io import BytesIO
 from dotenv import load_dotenv
 
 load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = st.secrets.get("HF_TOKEN", os.getenv("HF_TOKEN"))
 genai.configure(api_key=GEMINI_API_KEY)
 
 def load_gemini_llm():
