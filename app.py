@@ -192,7 +192,7 @@ def main():
     for message in st.session_state.messages:
         st.chat_message(message['role']).markdown(message['content'])
 
- st.write(ui_text[selected_lang]["mic_prompt"])
+    st.write(ui_text[selected_lang]["mic_prompt"])
     with st.spinner(ui_text[selected_lang]["stt_spinner"]):
         raw_text = speech_to_text(
             language=lang_code,
