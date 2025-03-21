@@ -63,7 +63,7 @@ def main():
             "tts_spinner": "जवाब को आवाज में बदल रहे हैं...",
             "warning": "कृपया माइक दबाएं और बोलें।"
         },
-        # [Other languages unchanged]
+        
         "English": {
             "title": "Vaccination Assistant 💉",
             "subtitle": "Speak in India's languages and get answers!",
@@ -162,8 +162,6 @@ def main():
         st.session_state.recording_count = 0
     if 'recording_active' not in st.session_state:
         st.session_state.recording_active = False
-    if 'audio_data' not in st.session_state:
-        st.session_state.audio_data = None  # Store audio bytes
 
     languages = {
         "Hindi": "hi", "English": "en", "Bengali": "bn", "Gujarati": "gu", "Kannada": "kn",
@@ -201,17 +199,23 @@ def main():
         )
      
     if raw_text and not st.session_state.recording_active:
-        if st.session_state.audio_data:
-                st.audio(st.session_state.audio_data, format="audio/mp3")
         try:
             st.session_state.recording_active = True
             llm = load_gemini_llm()
             context = build_context(st.session_state.messages, max_messages=5)
 
-            rejection_messages = {
+                   rejection_messages = {
                 "Hindi": "केवल टीकाकरण से संबंधित प्रश्न पूछें।",
                 "English": "Ask me only vaccination-related questions.",
-                # [Other languages unchanged]
+                "Bengali": "শুধুমাত্র ভ্যাকসিনেশন সম্পর্কিত প্রশ্ন জিজ্ঞাসা করুন।",
+                "Gujarati": "મને ફક્ત રસીકરણ સંબંધિત પ્રશ્નો પૂછો।",
+                "Kannada": "ನನಗೆ ಕೇವಲ ಲಸಿಕೆ ಸಂಬಂಧಿತ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ।",
+                "Malayalam": "വാക്സിനേഷനുമായി ബന്ധപ്പെട്ട ചോദ്യങ്ങൾ മാത്രം ചോദിക്കുക।",
+                "Marathi": "मला फक्त लसीकरणाशी संबंधित प्रश्न विचारा।",
+                "Tamil": "தடுப்பூசி தொடர்பான கேள்விகளை மட்டும் கேளுங்கள்।",
+                "Telugu": "నాకు కేవలం వాక్సినేషన్ సంబంధిత ప్రశ్నలు మాత్రమే అడగండి।",
+                "Urdu": "مجھ سے صرف ویکسینیشن سے متعلق سوالات پوچھیں۔",
+                "Punjabi": "ਮੈਨੂੰ ਸਿਰਫ ਟੀਕਾਕਰਨ ਨਾਲ ਸਬੰਧਤ ਸਵਾਲ ਪੁੱਛੋ।"
             }
 
             prompt = (
@@ -219,7 +223,7 @@ def main():
                 "A question is vaccination-related if it contains terms like 'vaccine', 'vaccination', 'टीकाकरण', 'measles', 'खसरा', 'rubella', 'रूबेला', 'covid', 'vitamin', 'विटामिन', "
                 "or follow-up terms like 'where', 'कहाँ', 'get', 'पाएं', 'this', 'यह', 'child', 'बच्चा', 'is', 'क्या', 'does', 'दिया', 'given', 'supplement', 'सप्लीमेंट', 'necessary', 'जरूरी' "
                 "after a vaccination question. Use the context below only if the question relates to it. "
-                f"If the question is not vaccination-related, respond with exactly: '{rejection_messages.get(selected_lang, 'Ask me only vaccination-related questions.')}' and ignore context. "
+                "If the question is not vaccination-related, respond with exactly: '{rejection_messages[selected_lang]}' and ignore context. "
                 f"Previous Vaccination-Related Context (if relevant):\n{context}\n\n"
                 f"Current Question: {raw_text}"
             )
@@ -234,20 +238,16 @@ def main():
             st.session_state.messages.append({'role': 'assistant', 'content': answer})
 
             with st.spinner(ui_text[selected_lang]["tts_spinner"]):
-                # Generate audio in memory instead of saving to disk
                 tts = gTTS(text=answer, lang=lang_code, tld="co.in")
-                audio_buffer = BytesIO()
-                tts.write_to_fp(audio_buffer)
-                audio_buffer.seek(0)
-                st.session_state.audio_data = audio_buffer.read()  # Store bytes in session state
-
+                tts.save("output.mp3")
+                st.audio("output.mp3")
 
             st.session_state.recording_count += 1
             st.session_state.recording_active = False
             st.rerun()
 
         except Exception as e:
-            st.error(f"Error: {str(e)}")  # Localized error message can be added
+            st.error(f"कोई गड़बड़ी: {str(e)}")  # Consider localizing if desired
             st.session_state.recording_active = False
             st.rerun()
     elif not raw_text and st.session_state.recording_active:
