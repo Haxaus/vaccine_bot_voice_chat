@@ -162,8 +162,6 @@ def main():
         st.session_state.recording_count = 0
     if 'recording_active' not in st.session_state:
         st.session_state.recording_active = False
-    if 'selected_lang' not in st.session_state:
-        st.session_state.selected_lang = "Hindi"
     if 'audio_data' not in st.session_state:
         st.session_state.audio_data = None  # Store audio bytes
 
@@ -171,12 +169,19 @@ def main():
         "Hindi": "hi", "English": "en", "Bengali": "bn", "Gujarati": "gu", "Kannada": "kn",
         "Malayalam": "ml", "Marathi": "mr", "Tamil": "ta", "Telugu": "te", "Urdu": "ur", "Punjabi": "pa"
     }
+       
+     if 'selected_lang' not in st.session_state:
+        st.session_state.selected_lang = "Hindi"
+         
     lang_keys = list(languages.keys())
     selected_lang = st.selectbox(
         "जवाब की भाषा चुनें:",  # Static Hindi label
         lang_keys,
-        index=lang_keys.index("Hindi")
+        index=lang_keys.index("Hindi")  # Pre-select Hindi
     )
+    st.session_state.selected_lang = selected_lang  # Update session state
+    lang_code = languages[selected_lang]
+
     st.title(ui_text[st.session_state.selected_lang]["title"])
     st.write(ui_text[st.session_state.selected_lang]["subtitle"])
 
