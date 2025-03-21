@@ -192,15 +192,17 @@ def main():
     for message in st.session_state.messages:
         st.chat_message(message['role']).markdown(message['content'])
 
-    st.write(ui_text[selected_lang]["mic_prompt"])
+ st.write(ui_text[selected_lang]["mic_prompt"])
     with st.spinner(ui_text[selected_lang]["stt_spinner"]):
         raw_text = speech_to_text(
             language=lang_code,
             use_container_width=True,
             key=f"STT_{st.session_state.recording_count}"
         )
-
+     
     if raw_text and not st.session_state.recording_active:
+        if st.session_state.audio_data:
+                st.audio(st.session_state.audio_data, format="audio/mp3")
         try:
             st.session_state.recording_active = True
             llm = load_gemini_llm()
@@ -239,9 +241,6 @@ def main():
                 audio_buffer.seek(0)
                 st.session_state.audio_data = audio_buffer.read()  # Store bytes in session state
 
-            # Play audio from memory
-            if st.session_state.audio_data:
-                st.audio(st.session_state.audio_data, format="audio/mp3")
 
             st.session_state.recording_count += 1
             st.session_state.recording_active = False
