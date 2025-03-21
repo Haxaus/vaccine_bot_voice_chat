@@ -76,15 +76,15 @@ def main():
         # Add other languages as needed
     }
 
-    if 'messages' not_in st.session_state:
+    if 'messages' not in st.session_state:
         st.session_state.messages = []
-    if 'recording_count' not_in st.session_state:
+    if 'recording_count' not in st.session_state:
         st.session_state.recording_count = 0
-    if 'recording_active' not_in st.session_state:
+    if 'recording_active' not in st.session_state:
         st.session_state.recording_active = False
-    if 'selected_lang' not_in st.session_state:
+    if 'selected_lang' not in st.session_state:
         st.session_state.selected_lang = "Hindi"
-    if 'audio_data' not_in st.session_state:
+    if 'audio_data' not in st.session_state:
         st.session_state.audio_data = None  # Store audio bytes
 
     languages = {
