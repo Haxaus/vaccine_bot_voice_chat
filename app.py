@@ -72,7 +72,7 @@ def main():
             "stt_spinner": "Converting voice to text...",
             "tts_spinner": "Converting answer to voice...",
             "warning": "Please press the mic and speak."
-        }
+        },
        "Bengali": {
             "title": "টিকা সহায়ক 💉",
             "subtitle": "ভারতের ভাষায় কথা বলুন এবং উত্তর পান!",
