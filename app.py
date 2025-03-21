@@ -204,7 +204,7 @@ def main():
             llm = load_gemini_llm()
             context = build_context(st.session_state.messages, max_messages=5)
 
-                   rejection_messages = {
+            rejection_messages = {
                 "Hindi": "केवल टीकाकरण से संबंधित प्रश्न पूछें।",
                 "English": "Ask me only vaccination-related questions.",
                 "Bengali": "শুধুমাত্র ভ্যাকসিনেশন সম্পর্কিত প্রশ্ন জিজ্ঞাসা করুন।",
