@@ -170,7 +170,7 @@ def main():
         "Malayalam": "ml", "Marathi": "mr", "Tamil": "ta", "Telugu": "te", "Urdu": "ur", "Punjabi": "pa"
     }
        
-     if 'selected_lang' not in st.session_state:
+    if 'selected_lang' not in st.session_state:
         st.session_state.selected_lang = "Hindi"
          
     lang_keys = list(languages.keys())
