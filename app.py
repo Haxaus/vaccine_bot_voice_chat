@@ -171,16 +171,16 @@ def main():
         "Hindi": "hi", "English": "en", "Bengali": "bn", "Gujarati": "gu", "Kannada": "kn",
         "Malayalam": "ml", "Marathi": "mr", "Tamil": "ta", "Telugu": "te", "Urdu": "ur", "Punjabi": "pa"
     }
-
-    st.title(ui_text[st.session_state.selected_lang]["title"])
-    st.write(ui_text[st.session_state.selected_lang]["subtitle"])
-
     lang_keys = list(languages.keys())
     selected_lang = st.selectbox(
         "जवाब की भाषा चुनें:",  # Static Hindi label
         lang_keys,
         index=lang_keys.index("Hindi")
     )
+    st.title(ui_text[st.session_state.selected_lang]["title"])
+    st.write(ui_text[st.session_state.selected_lang]["subtitle"])
+
+   
     st.session_state.selected_lang = selected_lang
     lang_code = languages[selected_lang]
 
